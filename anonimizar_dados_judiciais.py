@@ -41,10 +41,31 @@ def generate_random_cnpj():
     return cnpj
 
 def generate_random_cpf():
-    cpf = [random.randint(0, 9) for _ in range(9)]
-    cpf = cpf + [((sum([(10 - i) * v for i, v in enumerate(cpf)]) * 10) % 11) % 10]
-    cpf = cpf + [((sum([(11 - i) * v for i, v in enumerate(cpf)]) * 10) % 11) % 10]
-    cpf = '{:03d}.{:03d}.{:03d}-{:02d}'.format(*map(int, cpf))
+    # Generate the first 9 digits
+    digits = [random.randint(0, 9) for _ in range(9)]
+    
+    # Calculate first check digit
+    sum1 = sum(d * (10 - i) for i, d in enumerate(digits))
+    d1 = (sum1 * 10) % 11
+    if d1 == 10:
+        d1 = 0
+    digits.append(d1)
+    
+    # Calculate second check digit
+    sum2 = sum(d * (11 - i) for i, d in enumerate(digits))
+    d2 = (sum2 * 10) % 11
+    if d2 == 10:
+        d2 = 0
+    digits.append(d2)
+    
+    # Format into CPF string: XXX.XXX.XXX-XX
+    cpf = '{:03d}.{:03d}.{:03d}-{:02d}'.format(
+        int(''.join(map(str, digits[0:3]))),
+        int(''.join(map(str, digits[3:6]))),
+        int(''.join(map(str, digits[6:9]))),
+        int(''.join(map(str, digits[9:11])))
+    )
+    
     return cpf
 
 def generate_random_rg():
