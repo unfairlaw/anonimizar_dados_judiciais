@@ -1,14 +1,10 @@
 import random
 
 def generate_random_name_pf():
-    # Sílabas para formar nomes fictícios
-    words = names_and_surnames_pt_br = ["João Silva", "Maria Santos", "Carlos Oliveira", "Ana Souza", "José Pereira", "Fernanda Costa", "Paulo Santana", "Amanda Martins", "Pedro Ferreira", "Juliana Gonçalves", "Lucas Rodrigues", "Camila Almeida", "Marcelo Nascimento", "Patrícia Lima", "Rafael Carvalho", "Mariana Gomes", "Fábio Dias", "Laura Barbosa", "Diego Mendes", "Bianca Fernandes", "Bruno Rocha", "Tatiane Araújo", "Anderson Sales", "Gabriela Ribeiro", "Renato Cavalcanti", "Adriana Monteiro", "Leandro Correia", "Débora Marques", "Thiago Pereira", "Isabela Campos", "Felipe Cardoso", "Carolina Moreira", "Gustavo Lopes", "Aline Santos", "Vinícius Oliveira", "Natalia Silveira", "Eduardo Freitas", "Larissa Vieira", "Rodrigo Sousa", "Michelle Pinto", "Ricardo Costa", "Vanessa Dantas", "Marcela Barros", "André Melo", "Jéssica Farias", "Guilherme Araujo", "Priscila Ferreira", "Leonardo Sampaio", "Fernanda Lima"]
-
-
-    # Gerar um nome com 3 sílabas para cada uma das 3 palavras
-    name_pf = [random.choice(words) for _ in range(1)]
-    name_pf = ' '.join(word.capitalize() for word in name_pf)
-
+    names_and_surnames_pt_br = ["João Silva", "Maria Santos", "Carlos Oliveira", "Ana Souza", "José Pereira", "Fernanda Costa", "Paulo Santana", "Amanda Martins", "Pedro Ferreira", "Juliana Gonçalves", "Lucas Rodrigues", "Camila Almeida", "Marcelo Nascimento", "Patrícia Lima", "Rafael Carvalho", "Mariana Gomes", "Fábio Dias", "Laura Barbosa", "Diego Mendes", "Bianca Fernandes", "Bruno Rocha", "Tatiane Araújo", "Anderson Sales", "Gabriela Ribeiro", "Renato Cavalcanti", "Adriana Monteiro", "Leandro Correia", "Débora Marques", "Thiago Pereira", "Isabela Campos", "Felipe Cardoso", "Carolina Moreira", "Gustavo Lopes", "Aline Santos", "Vinícius Oliveira", "Natalia Silveira", "Eduardo Freitas", "Larissa Vieira", "Rodrigo Sousa", "Michelle Pinto", "Ricardo Costa", "Vanessa Dantas", "Marcela Barros", "André Melo", "Jéssica Farias", "Guilherme Araujo", "Priscila Ferreira", "Leonardo Sampaio", "Fernanda Lima"]
+    selected_name = random.choice(names_and_surnames_pt_br)
+    name_parts = selected_name.split()
+    name_pf = ' '.join(word.capitalize() for word in name_parts)
     return name_pf
 
 def generate_random_prof():
