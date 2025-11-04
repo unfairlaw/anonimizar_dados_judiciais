@@ -1,0 +1,86 @@
+{
+  "LambdaExecutionRole": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "lambda.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  },
+  "LambdaS3Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "S3ReadWrite",
+        "Effect": "Allow",
+        "Action": [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket",
+          "s3:DeleteObject"
+        ],
+        "Resource": [
+          "arn:aws:s3:::YOUR-BUCKET-NAME/*",
+          "arn:aws:s3:::YOUR-BUCKET-NAME"
+        ]
+      },
+      {
+        "Sid": "CloudWatchLogs",
+        "Effect": "Allow",
+        "Action": [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource": "arn:aws:logs:*:*:*"
+      }
+    ]
+  },
+  "EC2InstanceRole": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "ec2.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  },
+  "EC2S3Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "S3FullAccess",
+        "Effect": "Allow",
+        "Action": [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket",
+          "s3:DeleteObject",
+          "s3:GetObjectVersion"
+        ],
+        "Resource": [
+          "arn:aws:s3:::YOUR-BUCKET-NAME/*",
+          "arn:aws:s3:::YOUR-BUCKET-NAME"
+        ]
+      },
+      {
+        "Sid": "CloudWatchMetrics",
+        "Effect": "Allow",
+        "Action": [
+          "cloudwatch:PutMetricData",
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource": "*"
+      }
+    ]
+  }
+}

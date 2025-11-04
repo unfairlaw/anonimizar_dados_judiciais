@@ -42,6 +42,12 @@ A comprehensive, modular implementation of a Retrieval-Augmented Generation (RAG
    - Performance benchmarking
    - Detailed evaluation reports
 
+8. **AWS Integration** ☁️
+   - S3 document loading and vector store persistence
+   - Lambda serverless deployment
+   - EC2 instance deployment with FastAPI
+   - IAM roles and security configurations
+
 ## 📁 Project Structure
 
 ```
@@ -325,6 +331,49 @@ Query → Query Transform → Route Decision
                     Evaluate Response
                               ↓
               [Good] → Return   [Bad] → Retry
+```
+
+## ☁️ AWS Deployment
+
+### Deploy to AWS Lambda or EC2
+
+This system includes full AWS integration for production deployments:
+
+**AWS Lambda (Serverless)**:
+```bash
+cd aws_deployment/lambda
+./deploy.sh
+```
+
+**EC2 Instance**:
+```bash
+cd aws_deployment/ec2
+./setup.sh
+```
+
+**Features**:
+- 📦 S3 document loader - Read files from S3 buckets
+- 💾 S3 vector store persistence - Save/load embeddings from S3
+- 🔐 IAM role integration - Secure credential management
+- 📊 Cost optimization - Choose Lambda or EC2 based on usage
+- 📈 Auto-scaling support
+
+See **[AWS Deployment Guide](aws_deployment/AWS_DEPLOYMENT_GUIDE.md)** for:
+- Complete setup instructions
+- S3 bucket configuration
+- IAM policies
+- Cost comparison (Lambda vs EC2)
+- Monitoring and troubleshooting
+
+**Quick Test**:
+```bash
+# Lambda
+aws lambda invoke --function-name rag-ecosystem \
+    --payload '{"action":"query","query":"test"}' response.json
+
+# EC2 API
+curl -X POST http://your-ec2-ip/query \
+    -d '{"query":"test"}'
 ```
 
 ## 📚 References
