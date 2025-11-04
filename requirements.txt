@@ -1,0 +1,38 @@
+# RAG Ecosystem Dependencies
+
+# Core LLM and RAG frameworks
+langchain>=0.1.0
+langchain-community>=0.1.0
+langgraph>=0.0.30
+langchain-openai>=0.0.8
+langchain-anthropic>=0.1.0
+
+# Vector stores and embeddings
+chromadb>=0.4.22
+faiss-cpu>=1.7.4
+sentence-transformers>=2.3.0
+
+# Document processing
+pypdf>=4.0.0
+python-docx>=1.1.0
+beautifulsoup4>=4.12.0
+markdown>=3.5.0
+
+# Reranking
+rank-bm25>=0.2.2
+
+# Utilities
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Evaluation and monitoring
+ragas>=0.1.0
+datasets>=2.16.0
+
+# Web search (optional)
+duckduckgo-search>=4.0.0
+
+# API and CLI
+typer>=0.9.0
+rich>=13.7.0
