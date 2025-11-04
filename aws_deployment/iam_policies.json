@@ -11,9 +11,25 @@
       }
     ]
   },
-  "LambdaS3Policy": {
+  "LambdaBedrockS3Policy": {
     "Version": "2012-10-17",
     "Statement": [
+      {
+        "Sid": "BedrockInvokeModel",
+        "Effect": "Allow",
+        "Action": [
+          "bedrock:InvokeModel",
+          "bedrock:InvokeModelWithResponseStream"
+        ],
+        "Resource": [
+          "arn:aws:bedrock:*::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0",
+          "arn:aws:bedrock:*::foundation-model/anthropic.claude-3-haiku-20240307-v1:0",
+          "arn:aws:bedrock:*::foundation-model/amazon.titan-embed-text-v1",
+          "arn:aws:bedrock:*::foundation-model/amazon.titan-text-express-v1",
+          "arn:aws:bedrock:*::foundation-model/meta.llama3-*",
+          "arn:aws:bedrock:*::foundation-model/cohere.embed-*"
+        ]
+      },
       {
         "Sid": "S3ReadWrite",
         "Effect": "Allow",
@@ -52,9 +68,20 @@
       }
     ]
   },
-  "EC2S3Policy": {
+  "EC2BedrockS3Policy": {
     "Version": "2012-10-17",
     "Statement": [
+      {
+        "Sid": "BedrockInvokeModel",
+        "Effect": "Allow",
+        "Action": [
+          "bedrock:InvokeModel",
+          "bedrock:InvokeModelWithResponseStream"
+        ],
+        "Resource": [
+          "arn:aws:bedrock:*::foundation-model/*"
+        ]
+      },
       {
         "Sid": "S3FullAccess",
         "Effect": "Allow",

@@ -4,9 +4,9 @@ from typing import List, Optional, Dict, Any
 from langchain_core.documents import Document
 from langchain_core.language_models import BaseLLM
 from langchain_core.prompts import PromptTemplate
-from langchain_openai import ChatOpenAI
 from rag_ecosystem.config.settings import get_settings
 from rag_ecosystem.config.prompts import SystemPrompts
+from rag_ecosystem.utils.llm_factory import create_llm
 
 
 class ResponseGenerator:
@@ -24,18 +24,7 @@ class ResponseGenerator:
 
     def _initialize_llm(self) -> BaseLLM:
         """Initialize the language model based on settings."""
-        if self.settings.llm_provider == "openai":
-            return ChatOpenAI(
-                model=self.settings.llm_model,
-                temperature=self.settings.llm_temperature,
-                max_tokens=self.settings.llm_max_tokens,
-                api_key=self.settings.openai_api_key,
-            )
-        else:
-            raise NotImplementedError(
-                f"LLM provider {self.settings.llm_provider} not implemented"
-            )
-
+        return create_llm()
     def _format_context(self, documents: List[Document]) -> str:
         """Format retrieved documents into context string.
 

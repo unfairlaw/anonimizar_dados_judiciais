@@ -4,10 +4,10 @@ from typing import List, Optional, Dict, Any
 from pathlib import Path
 import chromadb
 from chromadb.config import Settings as ChromaSettings
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from rag_ecosystem.config.settings import get_settings
+from rag_ecosystem.utils.llm_factory import create_embeddings
 
 
 class DocumentIndexer:
@@ -24,14 +24,9 @@ class DocumentIndexer:
         self.text_splitter = self._initialize_text_splitter()
         self.vector_store = self._initialize_vector_store()
 
-    def _initialize_embeddings(self) -> HuggingFaceEmbeddings:
+    def _initialize_embeddings(self):
         """Initialize the embedding model."""
-        return HuggingFaceEmbeddings(
-            model_name=self.settings.embedding_model,
-            model_kwargs={'device': 'cpu'},
-            encode_kwargs={'normalize_embeddings': True}
-        )
-
+        return create_embeddings()
     def _initialize_text_splitter(self) -> RecursiveCharacterTextSplitter:
         """Initialize the text splitter for chunking documents."""
         return RecursiveCharacterTextSplitter(

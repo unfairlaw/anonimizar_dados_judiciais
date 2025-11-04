@@ -2,11 +2,11 @@
 
 from typing import List, Optional, Dict, Any, Literal
 from langchain_core.documents import Document
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from rank_bm25 import BM25Okapi
 import chromadb
 from chromadb.config import Settings as ChromaSettings
 from rag_ecosystem.config.settings import get_settings
+from rag_ecosystem.utils.llm_factory import create_embeddings
 
 
 class DocumentRetriever:
@@ -24,14 +24,9 @@ class DocumentRetriever:
         self.bm25_index = None
         self.bm25_documents = []
 
-    def _initialize_embeddings(self) -> HuggingFaceEmbeddings:
+    def _initialize_embeddings(self):
         """Initialize the embedding model."""
-        return HuggingFaceEmbeddings(
-            model_name=self.settings.embedding_model,
-            model_kwargs={'device': 'cpu'},
-            encode_kwargs={'normalize_embeddings': True}
-        )
-
+        return create_embeddings()
     def _initialize_vector_store(self):
         """Initialize connection to the vector store."""
         if self.settings.vector_store_type == "chroma":

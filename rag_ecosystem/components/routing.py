@@ -3,9 +3,9 @@
 from typing import Literal, Optional
 from langchain_core.language_models import BaseLLM
 from langchain_core.prompts import PromptTemplate
-from langchain_openai import ChatOpenAI
 from rag_ecosystem.config.settings import get_settings
 from rag_ecosystem.config.prompts import SystemPrompts
+from rag_ecosystem.utils.llm_factory import create_llm
 
 
 DataSource = Literal["vector_store", "web_search", "direct_llm"]
@@ -26,17 +26,7 @@ class QueryRouter:
 
     def _initialize_llm(self) -> BaseLLM:
         """Initialize the language model based on settings."""
-        if self.settings.llm_provider == "openai":
-            return ChatOpenAI(
-                model=self.settings.llm_model,
-                temperature=0.0,  # Use zero temperature for consistent routing
-                api_key=self.settings.openai_api_key,
-            )
-        else:
-            raise NotImplementedError(
-                f"LLM provider {self.settings.llm_provider} not implemented"
-            )
-
+        return create_llm(temperature=0.0)
     def route_query(self, query: str) -> DataSource:
         """Determine the best data source for a given query.
 

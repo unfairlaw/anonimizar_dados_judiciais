@@ -9,14 +9,20 @@ class Settings(BaseSettings):
     """Global configuration settings for the RAG ecosystem."""
 
     # LLM Configuration
-    llm_provider: Literal["openai", "anthropic", "ollama"] = "openai"
-    llm_model: str = "gpt-4-turbo-preview"
+    llm_provider: Literal["openai", "anthropic", "ollama", "bedrock"] = "bedrock"
+    llm_model: str = "anthropic.claude-3-sonnet-20240229-v1:0"
     llm_temperature: float = 0.0
     llm_max_tokens: int = 2048
 
+    # Bedrock Configuration
+    bedrock_region: str = "us-east-1"
+    bedrock_llm_model: str = "anthropic.claude-3-sonnet-20240229-v1:0"
+    bedrock_embedding_model: str = "amazon.titan-embed-text-v1"
+
     # Embedding Configuration
-    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
-    embedding_dimension: int = 384
+    embedding_provider: Literal["huggingface", "bedrock", "openai"] = "bedrock"
+    embedding_model: str = "amazon.titan-embed-text-v1"
+    embedding_dimension: int = 1536  # Titan: 1536, Cohere: 1024
 
     # Vector Store Configuration
     vector_store_type: Literal["chroma", "faiss"] = "chroma"

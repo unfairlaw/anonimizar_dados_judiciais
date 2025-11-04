@@ -4,9 +4,9 @@ from typing import List, Dict, Optional
 from langchain_core.documents import Document
 from langchain_core.language_models import BaseLLM
 from langchain_core.prompts import PromptTemplate
-from langchain_openai import ChatOpenAI
 from rag_ecosystem.config.settings import get_settings
 from rag_ecosystem.config.prompts import SystemPrompts
+from rag_ecosystem.utils.llm_factory import create_llm
 
 
 class DocumentGrader:
@@ -24,17 +24,7 @@ class DocumentGrader:
 
     def _initialize_llm(self) -> BaseLLM:
         """Initialize the language model based on settings."""
-        if self.settings.llm_provider == "openai":
-            return ChatOpenAI(
-                model=self.settings.llm_model,
-                temperature=0.0,  # Use zero temperature for consistent grading
-                api_key=self.settings.openai_api_key,
-            )
-        else:
-            raise NotImplementedError(
-                f"LLM provider {self.settings.llm_provider} not implemented"
-            )
-
+        return create_llm(temperature=0.0)
     def grade_document(self, query: str, document: Document) -> Dict:
         """Grade a single document's relevance to the query.
 
